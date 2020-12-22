@@ -1,0 +1,5 @@
+sky,temp,humidity,wind,water,forecast,enjoy_sport
+s,w,n,s,w,same,Y
+r,c,h,l,c,change,N
+r,c,h,s,c,same,N
+s,w,h,l,w,same,Y
