@@ -2,7 +2,7 @@ import sqlalchemy as db
 import pandas as pd
 import sys
 
-filepath = "D:\\xampp\\htdocs\\DataVisualizer\\Frontend\\Webpages\\upload\\" +  str(sys.argv[1])
+filepath = "C:\\xampp\\htdocs\\DataVisualizer\\Frontend\\Webpages\\upload\\" +  str(sys.argv[1])
 print(filepath)
 table_count = 0
 table_name = "user"+"table"+str(table_count)

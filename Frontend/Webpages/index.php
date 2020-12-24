@@ -28,13 +28,14 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-  <script src="jquery.js"></script> 
-    <script> 
-    $(function(){
-      $("#includedContent").load("header.html"); 
-    });
-    </script>
+  <script src="plugins/jquery/jquery.js"></script> 
+  <style>
+    td{
+      text-align: center;
+    }
+  </style>
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
 
 <div class="wrapper">
@@ -54,18 +55,68 @@
 
     <!-- Main content -->
     <section class="content"> 
-      <form method="post" enctype="multipart/form-data" action="uploadCSV.php">
-        <table class="table table-bordered" style="width: 50%; margin: auto;">
+      <div class="card" style="width: 56%; margin: auto;">
+        <div class="card-body">
+      <form method="post" enctype="multipart/form-data">
+        <table style="margin: auto;" cellpadding="10px">
           <tr>
-            <td><label for="csvFile">Upload csv file: </label></td>
+            <td style="text-align: right; width: 200px;"><label for="csvFile">Upload csv file: </label></td>
             <td><input type="file" accept=".csv" name="csvFile" id="csvFile"></td>
           </tr>
           <tr>
-            <td colspan="2" style="text-align: center;"><button class="btn btn-primary" type="submit" name="submit">Submit</button></td>
+            <td colspan="2"><button class="btn btn-primary" type="submit" name="submit">Submit</button></td>
           </tr>
+          
+              <?php
+        if ( isset($_POST["submit"]) ) {
+          ?>
+          <tr>
+            <td colspan="2">
+          <?php
+
+            if ( isset($_FILES["csvFile"])) {
+
+                    //if there was an error uploading the file
+                if ($_FILES["csvFile"]["error"] > 0) {
+                    echo "Return Code: " . $_FILES["csvFile"]["error"] . "<br />";
+
+                }
+                else {
+                         //Print file details
+                     echo "Upload: " . $_FILES["csvFile"]["name"] . "<br />";
+                     echo "Type: " . $_FILES["csvFile"]["type"] . "<br />";
+                     echo "Size: " . ($_FILES["csvFile"]["size"] / 1024) . " Kb<br />";
+                     echo "Temp file: " . $_FILES["csvFile"]["tmp_name"] . "<br />";
+
+                         //if file already exists
+                     if (file_exists("upload/" . $_FILES["csvFile"]["name"])) {
+                    echo $_FILES["csvFile"]["name"] . " already exists. ";
+                     }
+                     else {
+                            //Store file in directory "upload" with the name of "uploaded_file.txt"
+                    $storagename = $_FILES["csvFile"]["name"];
+                    move_uploaded_file($_FILES["csvFile"]["tmp_name"], "upload/" . $storagename);
+                    echo "Stored in: " . "upload/" . $_FILES["csvFile"]["name"] . "<br />";
+                    }
+                    echo exec("python C:\\\\xampp\\\\htdocs\\\\DataVisualizer\\\\Frontend\\\\Webpages\\\\InsertCSV.py ".$_FILES["csvFile"]["name"]);
+                    echo "Inserted to DB successfully";
+                }
+             } else {
+                     echo "No file selected <br />";
+            }
+           ?>
+           </td>
+          </tr>
+        <?php
+        }
+        ?>
+            
         </table>  
       </form>
+      </div>
+    </div>
     </section>
+    
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
