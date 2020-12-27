@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>Data Visualizer Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,6 +14,10 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Ajax -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <!-- PapaParse -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
@@ -74,20 +78,20 @@
             <td colspan="2">
           <?php
 
-            if ( isset($_FILES["csvFile"])) {
+            if ( isset($_FILES["csvFile"])) 
+            {
 
-                    //if there was an error uploading the file
-                if ($_FILES["csvFile"]["error"] > 0) {
+                //if there was an error uploading the file
+                if ($_FILES["csvFile"]["error"] > 0) 
+                {
                     echo "Return Code: " . $_FILES["csvFile"]["error"] . "<br />";
 
                 }
-                else {
+                else 
+                {
                          //Print file details
-                     echo "Upload: " . $_FILES["csvFile"]["name"] . "<br />";
                      echo "Type: " . $_FILES["csvFile"]["type"] . "<br />";
                      echo "Size: " . ($_FILES["csvFile"]["size"] / 1024) . " Kb<br />";
-                     echo "Temp file: " . $_FILES["csvFile"]["tmp_name"] . "<br />";
-
                          //if file already exists
                      if (file_exists("upload/" . $_FILES["csvFile"]["name"])) {
                     echo $_FILES["csvFile"]["name"] . " already exists. ";
@@ -98,11 +102,26 @@
                     move_uploaded_file($_FILES["csvFile"]["tmp_name"], "upload/" . $storagename);
                     echo "Stored in: " . "upload/" . $_FILES["csvFile"]["name"] . "<br />";
                     }
-                    echo exec("python C:\\\\xampp\\\\htdocs\\\\DataVisualizer\\\\Frontend\\\\Webpages\\\\InsertCSV.py ".$_FILES["csvFile"]["name"]);
-                    echo "Inserted to DB successfully";
+                    $execpath =  str_replace("\\","\\\\\\\\", dirname(__FILE__)) . "\\\\\\\InsertCSV.py";                    
+                    $retval =  exec("python " .$execpath. " " .$_FILES["csvFile"]["name"]);
+                    if ($retval == 1) 
+                    {   
+                      echo "<br/> Inserted to DB successfully";
+                    }
+
+                    else if ($retval == 0)
+                    {
+                      echo "<br/> Connection to DB failed";
+                    }
+                    else{
+                      echo "<br/> Inserting to DB Failed";
+                    }
+                    
                 }
-             } else {
-                     echo "No file selected <br />";
+            } 
+            else 
+            {
+              echo "No file selected <br />";
             }
            ?>
            </td>
