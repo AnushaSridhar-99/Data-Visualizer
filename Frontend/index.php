@@ -14,10 +14,6 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Ajax -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <!-- PapaParse -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
@@ -106,7 +102,19 @@
                     $retval =  exec("python " .$execpath. " " .$_FILES["csvFile"]["name"]);
                     if ($retval == 1) 
                     {   
-                      echo "<br/> Inserted to DB successfully";
+                      echo "<br/> Inserted to DB successfully";                      
+                      echo "<table class =\"table table-bordered table-striped\">\n\n";
+                      $f = fopen("upload/".$_FILES["csvFile"]["name"], "r");
+                      while (($line = fgetcsv($f)) !== false) {
+                              echo "<tr>";
+                              foreach ($line as $cell) {
+                                      echo "<td>" . htmlspecialchars($cell) . "</td>";
+                              }
+                              echo "</tr>\n";
+                      }
+                      fclose($f);
+                      echo "\n</table>";
+
                     }
 
                     else if ($retval == 0)
@@ -146,6 +154,7 @@
     </div>
   </footer>
 </div>
+
 <!-- ./wrapper -->
 
 <!-- jQuery -->
