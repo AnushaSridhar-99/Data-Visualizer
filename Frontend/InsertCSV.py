@@ -24,7 +24,7 @@ try:
             if_exists='replace', index=False)
     metadata = db.MetaData()
     info = db.Table(table_name, metadata, autoload=True, autoload_with=engine)
-    print(1)
+    print(table_name)
 except:
     print(2)
     exit()

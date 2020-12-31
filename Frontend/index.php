@@ -66,74 +66,74 @@
           <tr>
             <td colspan="2"><button class="btn btn-primary" type="submit" name="submit">Submit</button></td>
           </tr>
-          
-              <?php
-        if ( isset($_POST["submit"]) ) {
+          <?php
+          if ( isset($_POST["submit"]) ) {
           ?>
           <tr>
             <td colspan="2">
-          <?php
+                <?php
+                  if ( isset($_FILES["csvFile"])) 
+                  {
+                      //if there was an error uploading the file
+                      if ($_FILES["csvFile"]["error"] > 0) 
+                      {
+                          echo "Return Code: " . $_FILES["csvFile"]["error"] . "<br />";
 
-            if ( isset($_FILES["csvFile"])) 
-            {
-
-                //if there was an error uploading the file
-                if ($_FILES["csvFile"]["error"] > 0) 
-                {
-                    echo "Return Code: " . $_FILES["csvFile"]["error"] . "<br />";
-
-                }
-                else 
-                {
-                         //Print file details
-                     echo "Type: " . $_FILES["csvFile"]["type"] . "<br />";
-                     echo "Size: " . ($_FILES["csvFile"]["size"] / 1024) . " Kb<br />";
-                         //if file already exists
-                     if (file_exists("upload/" . $_FILES["csvFile"]["name"])) {
-                    echo $_FILES["csvFile"]["name"] . " already exists. ";
-                     }
-                     else {
-                            //Store file in directory "upload" with the name of "uploaded_file.txt"
-                    $storagename = $_FILES["csvFile"]["name"];
-                    move_uploaded_file($_FILES["csvFile"]["tmp_name"], "upload/" . $storagename);
-                    echo "Stored in: " . "upload/" . $_FILES["csvFile"]["name"] . "<br />";
-                    }
-                    $execpath =  str_replace("\\","\\\\\\\\", dirname(__FILE__)) . "\\\\\\\InsertCSV.py";                    
-                    $retval =  exec("python " .$execpath. " " .$_FILES["csvFile"]["name"]);
-                    if ($retval == 1) 
-                    {   
-                      echo "<br/> Inserted to DB successfully";                      
-                      echo "<table class =\"table table-bordered table-striped\">\n\n";
-                      $f = fopen("upload/".$_FILES["csvFile"]["name"], "r");
-                      while (($line = fgetcsv($f)) !== false) {
-                              echo "<tr>";
-                              foreach ($line as $cell) {
-                                      echo "<td>" . htmlspecialchars($cell) . "</td>";
-                              }
-                              echo "</tr>\n";
                       }
-                      fclose($f);
-                      echo "\n</table>";
-
-                    }
-
-                    else if ($retval == 0)
-                    {
-                      echo "<br/> Connection to DB failed";
-                    }
-                    else{
-                      echo "<br/> Inserting to DB Failed";
-                    }
-                    
-                }
-            } 
-            else 
-            {
-              echo "No file selected <br />";
-            }
-           ?>
-           </td>
-          </tr>
+                      else 
+                      {
+                              //Print file details
+                          echo "Type: " . $_FILES["csvFile"]["type"] . "<br />";
+                          echo "Size: " . ($_FILES["csvFile"]["size"] / 1024) . " Kb<br />";
+                              //if file already exists
+                          if (file_exists("upload/" . $_FILES["csvFile"]["name"])) {
+                          echo $_FILES["csvFile"]["name"] . " already exists. ";
+                          }
+                          else {
+                                  //Store file in directory "upload" with the name of "uploaded_file.txt"
+                          $storagename = $_FILES["csvFile"]["name"];
+                          move_uploaded_file($_FILES["csvFile"]["tmp_name"], "upload/" . $storagename);
+                          echo "Stored in: " . "upload/" . $_FILES["csvFile"]["name"] . "<br />";
+                          }
+                          $execpath =  str_replace("\\","\\\\\\\\", dirname(__FILE__)) . "\\\\\\\InsertCSV.py";                    
+                          $retval =  exec("python " .$execpath. " " .$_FILES["csvFile"]["name"]);
+                          echo $retval;
+                          if ($retval === 2) 
+                          {   
+                            echo "<br/> Inserting to DB Failed";
+                                              
+                          }
+                          elseif ($retval === 0)
+                          {
+                            echo "<br/> Connection to DB failed";
+                          }
+                          else
+                          {
+                            echo $retval;
+                            echo "<br/> Inserted to DB successfully";                      
+                            echo "<table class =\"table table-bordered table-striped\">\n\n";
+                            $f = fopen("upload/".$_FILES["csvFile"]["name"], "r");
+                            while (($line = fgetcsv($f)) !== false) {
+                                    echo "<tr>";
+                                    foreach ($line as $cell) {
+                                            echo "<td>" . htmlspecialchars($cell) . "</td>";
+                                    }
+                                    echo "</tr>\n";
+                            }
+                            fclose($f);
+                            echo "\n</table>"; 
+                            echo '<button class="btn btn-primary" type="button" name="choosePlot" onclick="location.href=\'cardselect.php\'">Choose Plots</button>';                            
+                          }
+                          
+                      }
+                  } 
+                  else 
+                  {
+                    echo "No file selected <br />";
+                  }
+                ?>
+            </td>
+          </tr>          
         <?php
         }
         ?>
