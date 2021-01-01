@@ -6,29 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data Visualizer Dashboard</title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-  <script src="plugins/jquery/jquery.js"></script> 
+  <title>Data Visualizer Dashboard</title> 
   <style>
     td{
       text-align: center;
@@ -64,11 +42,14 @@
             <td><input type="file" accept=".csv" name="csvFile" id="csvFile"></td>
           </tr>
           <tr>
-            <td colspan="2"><button class="btn btn-primary" type="submit" name="submit">Submit</button></td>
+            <td colspan="2"><button class="btn btn-primary" type="submit" name="submit">Upload</button></td>
           </tr>
+        </table>
+      </form>
           <?php
           if ( isset($_POST["submit"]) ) {
           ?>
+          <table style="margin: auto;" cellpadding="10px">
           <tr>
             <td colspan="2">
                 <?php
@@ -121,8 +102,18 @@
                                     echo "</tr>\n";
                             }
                             fclose($f);
-                            echo "\n</table>"; 
-                            echo '<button class="btn btn-primary" type="button" name="choosePlot" onclick="location.href=\'cardselect.php\'">Choose Plots</button>';                            
+                            echo "\n</table>";
+                            //echo '<button class="btn btn-primary" type="button" name="choosePlot" onclick="location.href=\'cardselect.php\'">Choose Plots</button>';
+                            
+                            ?>
+
+                            <div style="text-align: center;">
+                            <form method="post" action="cardselect.php">
+                              <input type="hidden" name="fileName" value="<?=$retval;?>"/>
+                              <button class="btn btn-primary" type="submit" name="submit">Choose Plot</button>
+                          </form>
+                        </div>
+                            <?php                            
                           }
                           
                       }
@@ -132,14 +123,14 @@
                     echo "No file selected <br />";
                   }
                 ?>
+                
             </td>
           </tr>          
         <?php
         }
         ?>
             
-        </table>  
-      </form>
+       
       </div>
     </div>
     </section>
@@ -155,41 +146,5 @@
   </footer>
 </div>
 
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
 </body>
 </html>
