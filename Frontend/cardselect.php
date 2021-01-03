@@ -34,41 +34,14 @@
             <section class="content">                
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="flip-card">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front">
-                                        <img src="dist/img/DV.png" alt="Avatar" style="width:300px;height:300px;">
-                                    </div>
-                                    <div class="flip-card-back">
-                                        <h1>John Doe</h1>
-                                        <p>Architect & Engineer</p>
-                                        <p>We love that guy</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  
                          <div class="col-md-4">
-                            <div class="flip-card">
+                            <div class="flip-card" id="fc1">
                                 <div class="flip-card-inner">
                                     <div class="flip-card-front">
-                                        <img src="dist/img/DV.png" alt="Avatar" style="width:300px;height:300px;">
-                                    </div>
-                                    <div class="flip-card-back">
-                                        <h1>John Doe</h1>
-                                        <p>Architect & Engineer</p>
-                                        <p>We love that guy</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>             
-                         <div class="col-md-4">
-                            <div class="flip-card">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front">
-                                        <img src="dist/img/DV.png" alt="Avatar" style="width:300px;height:300px;">
+                                        <h2>SCATTER PLOT</h1>
+                                        <img src="dist/img/scatterplot.png" alt="Avatar" style="width:200px;height:200px;">                
                                         <script>
-                                            $('.flip-card .flip-card-inner').click(function() {
+                                            $(document.getElementById('fc1')).click(function() {
                                             $(this).closest('.flip-card').toggleClass('hover');
                                             $(this).css('transform, rotateY(180deg)');
                                             });
@@ -81,15 +54,119 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                                   
+                        </div>                      
+                       <div class="col-md-4">
+                            <div class="flip-card" id="fc2">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h2>LINE CHART</h2>
+                                        <img src="dist/img/linechart.png" alt="Avatar" style="width:200px;height:200px;">
+                                        <script>
+                                            $(document.getElementById('fc2')).click(function() {
+                                            $(this).closest('.flip-card').toggleClass('hover');
+                                            $(this).css('transform, rotateY(180deg)');
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <h1>John Doe</h1>
+                                        <p>Architect & Engineer</p>
+                                        <p>We love that guy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>             
+                        <div class="col-md-4">
+                            <div class="flip-card" id="fc3">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h2>BAR CHART</h2>
+                                        <img src="dist/img/barchart.png" alt="Avatar" style="width:200px;height:200px;"/>
+                                        <script>
+                                            $(document.getElementById('fc3')).click(function() {
+                                            $(this).closest('.flip-card').toggleClass('hover');
+                                            $(this).css('transform, rotateY(180deg)');
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <h1>John Doe</h1>
+                                        <p>Architect & Engineer</p>
+                                        <p>We love that guy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     
+                        <div class="col-md-4">
+                            <div class="flip-card" id="fc4">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h2>PIE CHART</h2>
+                                        <img src="dist/img/piechart.png" alt="Avatar" style="width:200px;height:200px;">
+                                        <script>
+                                            $(document.getElementById('fc4')).click(function() {
+                                            $(this).closest('.flip-card').toggleClass('hover');
+                                            $(this).css('transform, rotateY(180deg)');
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <h1>John Doe</h1>
+                                        <p>Architect & Engineer</p>
+                                        <p>We love that guy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                         
+                        <div class="col-md-4">
+                            <div class="flip-card" id="fc5">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h2>DOT PLOT</h2>
+                                        <img src="dist/img/dotplot.png" alt="Avatar" style="width:200px;height:200px;">
+                                        <script>
+                                            $(document.getElementById('fc5')).click(function() {
+                                            $(this).closest('.flip-card').toggleClass('hover');
+                                            $(this).css('transform, rotateY(180deg)');
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <h1>John Doe</h1>
+                                        <p>Architect & Engineer</p>
+                                        <p>We love that guy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>         
+                        <div class="col-md-4">
+                            <div class="flip-card" id="fc6">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h2>TABLE</h2>
+                                        <img src="dist/img/table.png" alt="Avatar" style="width:200px;height:200px;">
+                                        <script>
+                                            $(document.getElementById('fc6')).click(function() {
+                                            $(this).closest('.flip-card').toggleClass('hover');
+                                            $(this).css('transform, rotateY(180deg)');
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <h1>John Doe</h1>
+                                        <p>Architect & Engineer</p>
+                                        <p>We love that guy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                                                       
                        
                     </div>
                 </div>
             </section>
-            <div style="margin-top: 120px; text-align: center;">
+            <div style="margin-top: 10px; text-align: center;">
             <form method="post" action="plot.php">
-                <input type="text" readonly="readonly" name="fileName" value="<?=$fileName?>">
-
+                <input type="hidden" name="fileName" value="<?=$fileName?>">
                 <button class="btn btn-primary" type="submit" name="submit">Plot Graph</button>
             </form>
         </div>

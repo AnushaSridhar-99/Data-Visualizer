@@ -20,6 +20,33 @@
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
   <script src="plugins/jquery/jquery.js"></script>
 
+  <style>
+    #loader { 
+            border: 12px solid #f3f3f3; 
+            border-radius: 50%; 
+            border-top: 12px solid #444444; 
+            width: 70px; 
+            height: 70px; 
+            animation: spin 1s linear infinite; 
+        } 
+          
+        @keyframes spin { 
+            100% { 
+                transform: rotate(360deg); 
+            } 
+        } 
+          
+        .center { 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            margin: auto; 
+        } 
+</style>
+<div id="loader" class="center"></div> 
+
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -30,23 +57,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="index.php" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
     </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-
+ 
     
   </nav>
   <!-- /.navbar -->
@@ -84,63 +97,52 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Charts
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/uplot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>uPlot</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           <li class="nav-header">EXAMPLES</li>
           <li class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" href="scatterplot.php">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
-                Calendar
+                Scatter Plot
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link">
-              <i class="nav-icon far fa-image"></i>
+            <a class="nav-link" href="linechart.php">
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
-                Gallery
+                Line Chart
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" href="barchart.php">
+              <i class="nav-icon fas fa-chart-bar" aria-hidden="true"></i>
+              <p>
+                Bar Chart
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="piechart.php">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Pie Chart
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dotplot.php">
+              <i class="nav-icon fas fa-braille"></i>
+              <p>
+                Dot Plot
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="table.php">
               <i class="nav-icon fas fa-columns"></i>
               <p>
-                Kanban Board
+                Table
               </p>
             </a>
           </li>
@@ -187,3 +189,19 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+
+<script> 
+      document.onreadystatechange = function() { 
+          if (document.readyState !== "complete") { 
+              document.querySelector( 
+                "body").style.visibility = "hidden"; 
+              document.querySelector( 
+                "#loader").style.visibility = "visible"; 
+          } else { 
+              document.querySelector( 
+                "#loader").style.display = "none"; 
+              document.querySelector( 
+                "body").style.visibility = "visible"; 
+          } 
+      }; 
+</script> 

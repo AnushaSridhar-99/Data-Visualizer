@@ -32922,8 +32922,10 @@ a.text-muted:hover {
 
 .flip-card {
   background-color: transparent;
+  margin:5px;
+  padding:5px;
   width: 300px;
-  height: 200px;
+  height: 300px;
   border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
@@ -32954,14 +32956,14 @@ a.text-muted:hover {
 
 /* Style the front side (fallback if image is missing) */
 .flip-card-front {
-  background-color: #bbb;
-  color: black;
+  background-color: #fff;
+  color: #000;
 }
 
 /* Style the back side */
 .flip-card-back {
-  background-color: dodgerblue;
-  color: white;
+  background-color: #fff;
+  color: black;
   transform: rotateY(180deg);
 }
 
@@ -32973,6 +32975,7 @@ a.text-muted:hover {
 .flip-card.hover .flip-card-inner {
     transform: rotateY(180deg);
 }
+
 
 
 
