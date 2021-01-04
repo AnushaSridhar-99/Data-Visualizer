@@ -13,6 +13,41 @@
     <link rel="stylesheet" href="dist/css/adminlte.css">
 </head>
 
+<?php 
+	$host = "localhost";
+	$user = "root";
+	$password = "";
+	$database = "datavisualizer";
+
+	$conn = mysqli_connect($host, $user, $password);   
+	$db = mysqli_select_db($conn, $database);
+	$database_table = $_POST['fileName'];
+	
+	if ($conn && $db)
+	 {
+	 	
+		$col_name_query = mysqli_query($conn, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'datavisualizer' AND TABLE_NAME = '".$database_table."'");
+		$result = $col_name_query->fetch_all(MYSQLI_ASSOC);
+
+		// Array of all column names
+		$columnArr = array_column($result, 'COLUMN_NAME');
+		$query = "SELECT * FROM `".$database_table."`";
+		$res = mysqli_query($conn, $query);
+		$rows = $res->fetch_all(MYSQLI_ASSOC);
+		for ($i=1; $i < count($columnArr)+1; $i++) { 
+			$name = "column".$i;
+			${$name} = array_column($rows, $columnArr[$i-1]);
+		}
+		
+		
+	}
+	else
+	{
+		echo "connection failed";
+	}
+	
+?>
+
 <body class="hold-transition sidebar-mini layout-fixed">
 
     <div class="wrapper">
@@ -34,7 +69,8 @@
             <section class="content">                
                 <div class="container">
                     <div class="row">
-                         <div class="col-md-4">
+                    <form method="POST">
+                        <div class="col-md-4">
                             <div class="flip-card" id="fc1">
                                 <div class="flip-card-inner">
                                     <div class="flip-card-front">
@@ -48,14 +84,22 @@
                                         </script>
                                     </div>
                                     <div class="flip-card-back">
-                                        <h1>John Doe</h1>
-                                        <p>Architect & Engineer</p>
-                                        <p>We love that guy</p>
+                                        <h1>SCATTER PLOT</h1>
+                                        <p>X</P>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
+                                        <p>Y</p>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
                                     </div>
                                 </div>
                             </div>
                         </div>                      
-                       <div class="col-md-4">
+                       <div class="col-md-2">
                             <div class="flip-card" id="fc2">
                                 <div class="flip-card-inner">
                                     <div class="flip-card-front">
@@ -69,9 +113,17 @@
                                         </script>
                                     </div>
                                     <div class="flip-card-back">
-                                        <h1>John Doe</h1>
-                                        <p>Architect & Engineer</p>
-                                        <p>We love that guy</p>
+                                        <h1>SCATTER PLOT</h1>
+                                        <p>X</P>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
+                                        <p>Y</p>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
                                     </div>
                                 </div>
                             </div>
@@ -90,9 +142,17 @@
                                         </script>
                                     </div>
                                     <div class="flip-card-back">
-                                        <h1>John Doe</h1>
-                                        <p>Architect & Engineer</p>
-                                        <p>We love that guy</p>
+                                        <h1>SCATTER PLOT</h1>
+                                        <p>X</P>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
+                                        <p>Y</p>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
                                     </div>
                                 </div>
                             </div>
@@ -111,9 +171,17 @@
                                         </script>
                                     </div>
                                     <div class="flip-card-back">
-                                        <h1>John Doe</h1>
-                                        <p>Architect & Engineer</p>
-                                        <p>We love that guy</p>
+                                         <h1>SCATTER PLOT</h1>
+                                        <p>X</P>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
+                                        <p>Y</p>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
                                     </div>
                                 </div>
                             </div>
@@ -132,9 +200,17 @@
                                         </script>
                                     </div>
                                     <div class="flip-card-back">
-                                        <h1>John Doe</h1>
-                                        <p>Architect & Engineer</p>
-                                        <p>We love that guy</p>
+                                        <h1>SCATTER PLOT</h1>
+                                        <p>X</P>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
+                                        <p>Y</p>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>
                                     </div>
                                 </div>
                             </div>
@@ -153,14 +229,17 @@
                                         </script>
                                     </div>
                                     <div class="flip-card-back">
-                                        <h1>John Doe</h1>
-                                        <p>Architect & Engineer</p>
-                                        <p>We love that guy</p>
+                                         <h1>SCATTER PLOT</h1>
+                                        <p>X</P>
+                                        <?php
+                                        for ($i=1; $i < count($columnArr)+1; $i++) { 
+                                                echo '<input type="checkbox" id="sp'.$i.'">'.$columnArr[$i-1].'</input><br/>';
+                                        }?>                                     
                                     </div>
                                 </div>
                             </div>
-                        </div>                                                                       
-                       
+                        </div>  
+                    </form>                                                                                            
                     </div>
                 </div>
             </section>
