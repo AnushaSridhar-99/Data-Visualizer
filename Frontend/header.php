@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+} 
+?>
 <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -54,9 +60,44 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index.php" class="nav-link">Home</a>
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION["desgn"] === "user")
+      {
+          echo '<li class="nav-item d-none d-sm-inline-block">
+        <a href="index.php" class="nav-link">Upload new CSV</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="userhome.php" class="nav-link">Remove existing CSV</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="logout.php" class="nav-link">Logout</a>
+      </li>';
+        }    
+      else{
+        if(isset($_SESSION["desgn"]) && $_SESSION["desgn"] === "admin")
+        {
+          echo '<li class="nav-item d-none d-sm-inline-block">
+        <a href="logout.php" class="nav-link">Logout</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="adminreg.php" class="nav-link">Add new admin</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="admin.php" class="nav-link">Remove Users</a>
+      </li>';
+         
+      }
+      else{
+        echo '<li class="nav-item d-none d-sm-inline-block">
+        <a href="login.php" class="nav-link">Login</a>
+      </li>      
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="register.php" class="nav-link">Register</a>
+      </li>';
+        
+      }}?>
     </ul>
 
  

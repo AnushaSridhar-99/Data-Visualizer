@@ -113,7 +113,7 @@
                                         </script>
                                     </div>
                                     <div class="flip-card-back">
-                                        <h1>SCATTER PLOT</h1>
+                                        <h1>LINE CHART</h1>
                                         <p>X</P>
                                         <?php
                                         for ($i=1; $i < count($columnArr)+1; $i++) { 
@@ -142,7 +142,7 @@
                                         </script>
                                     </div>
                                     <div class="flip-card-back">
-                                        <h1>SCATTER PLOT</h1>
+                                        <h1>BAR CHART</h1>
                                         <p>X</P>
                                         <?php
                                         for ($i=1; $i < count($columnArr)+1; $i++) { 
@@ -171,7 +171,7 @@
                                         </script>
                                     </div>
                                     <div class="flip-card-back">
-                                         <h1>SCATTER PLOT</h1>
+                                         <h1>PIE CHART</h1>
                                         <p>X</P>
                                         <?php
                                         for ($i=1; $i < count($columnArr)+1; $i++) { 
