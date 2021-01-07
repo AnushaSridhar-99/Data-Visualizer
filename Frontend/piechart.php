@@ -41,7 +41,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Line Chart</h1>
+            <h1 class="m-0">Pie Chart</h1>
             <form method="post">
               <table class="table table-bordered" style="width: 1000px;">
                 <tr>
