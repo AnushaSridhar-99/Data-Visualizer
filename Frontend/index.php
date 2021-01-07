@@ -89,6 +89,7 @@
               $execpath =  str_replace("\\","\\\\\\\\", dirname(__FILE__)) . "\\\\\\\InsertCSV.py";                    
               $retval =  exec("python " .$execpath. " " .$_FILES["csvFile"]["name"]);
               echo $retval;
+              $_SESSION['fileName'] = $retval;
               if ($retval === 2) 
               {   
                 echo "<br/> Inserting to DB Failed";
@@ -101,6 +102,7 @@
               else
               {
                 echo $retval;
+                $_SESSION['fileName'] = $retval;
                 echo "<br/> Inserted to DB successfully";                      
                 echo "<table class =\"table table-bordered table-striped\">\n\n";
                 $f = fopen("upload/".$_FILES["csvFile"]["name"], "r");
@@ -133,7 +135,7 @@
                 ?>
 
                 <div style="text-align: center;">
-                <form method="post" action="cardselect.php">
+                <form method="post" action="table.php">
                   <input type="hidden" name="fileName" value="<?=$retval;?>"/>
                   <button class="btn btn-primary" type="submit" name="submit">Choose Plot</button>
               </form>

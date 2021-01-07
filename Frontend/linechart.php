@@ -1,185 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Visualizer Dashboard</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-    <script src="plugins/jquery/jquery.js"></script>
-    <script src="plugins/plotly/plotly-latest.min.js"></script>
-    <style>
-        td {
-            text-align: center;
-        }
-    </style>
 <?php
-  include 'header.php';
+	session_start();
+	include 'header1.php';
+	include 'connection.php';
+	$database_table = $_SESSION['fileName'];
+  if ($conn && $db)
+   {
+    
+    $col_name_query = mysqli_query($conn, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'datavisualizer' AND TABLE_NAME = '".$database_table."'");
+    $result = $col_name_query->fetch_all(MYSQLI_ASSOC);
+
+    // Array of all column names
+    $columnArr = array_column($result, 'COLUMN_NAME');
+    
+    
+  }
+  else
+  {
+    echo "connection failed";
+  }
+  
 ?>
+<head>
+	<title>Line Chart</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	    td{
+	      text-align: center;
+	    }
+	</style>
 </head>
-
 <body class="hold-transition sidebar-mini layout-fixed">
-
-    <div class="wrapper">
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Example - Line Chart</h1>
-                        </div>
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-            <section class="content">                
-                <div class="container">
-                    <div class="card" style="width:100%; margin:auto">
-                    <div class="card-body">
-                        <div class="row mb-6 justify-content-center">
-                            <div class="col-sm-6" id="linechart">
-                                <script>
-                                    trace1 = {
-                                    type: 'scatter',
-                                    x: [1, 2, 3, 4],
-                                    y: [10, 15, 13, 17],
-                                    mode: 'lines',
-                                    name: 'Red',
-                                    line: {
-                                        color: 'rgb(219, 64, 82)',
-                                        width: 3
-                                    }
-                                    };
-
-                                    trace2 = {
-                                    type: 'scatter',
-                                    x: [1, 2, 3, 4],
-                                    y: [12, 9, 15, 12],
-                                    mode: 'lines',
-                                    name: 'Blue',
-                                    line: {
-                                        color: 'rgb(55, 128, 191)',
-                                        width: 1
-                                    }
-                                    };
-
-                                    var layout = {
-                                    width: 500,
-                                    height: 500
-                                    };
-
-                                    var data = [trace1, trace2];
-                                    scatterplot = document.getElementById("linechart");
-
-                                    Plotly.newPlot(linechart, data, layout);
-                                </script>                    
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                     <div class="card" style="width:100%; margin:auto">
-                    <div class="card-body">
-                        <div class="row mb-6 justify-content-center">
-                            <div class="col-sm-6" id="datatable">
-                                <script> 
-                                    var values_table = [[1,2,3,4],[10, 15, 13, 17],[12, 9, 15, 12]];                                
-                                    var data_table = [{
-                                    type: 'table',
-                                    header: {
-                                        values: ['x','y1','y2'],
-                                        align: "center",
-                                        line: {width: 1, color: 'black'},
-                                        fill: {color: "grey"},
-                                        font: {family: "Arial", size: 12, color: "white"}
-                                    },
-                                    cells: {
-                                        values: values_table,
-                                        align: "center",
-                                        line: {color: "black", width: 1},
-                                        font: {family: "Arial", size: 11, color: ["black"]}
-                                    }
-                                    }];
-
-                                    Plotly.newPlot(datatable, data_table);
-                                </script>                    
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </section>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong></strong>
-            <div class="float-right d-none d-sm-inline-block">
-
-            </div>
-        </footer>
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Line Chart</h1>
+            <form method="post">
+              <table class="table table-bordered" style="width: 1000px;">
+                <tr>
+                  <td>X axis:</td>
+                  <td><select class="form-control" name="x-axis">
+                    <option disabled="disabled" selected="selected">Select</option>
+                    <?php
+                      foreach ($columnArr as $column) {
+                      ?>
+                        <option value="<?=$column?>"><?=$column?></option>
+                      <?php
+                      }
+                    ?>
+                  </select></td>
+                  <td>Y axis:</td>
+                  <td><select name="y-axis[]" class="form-control" multiple="multiple">
+                    <option disabled="disabled" selected="selected">Select</option>
+                    <?php
+                      foreach ($columnArr as $column) {
+                      ?>
+                        <option value="<?=$column?>"><?=$column?></option>
+                      <?php
+                      }
+                    ?>
+                  </select>
+                  </td>
+                  <td class="text-center"><button class="btn btn-primary" type="buttons">Generate</button></td>
+                </tr>
+              </table>
+            </form>
+          </div>
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-
-    <!-- ./wrapper -->
-
-    <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="plugins/chart.js/Chart.min.js"></script>
-    <!-- Sparkline -->
-    <script src="plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-    <script src="plugins/moment/moment.min.js"></script>
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
-    <script src="plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.js"></script>
-
-    <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard.js"></script>
+    <!-- /.content-header -->
+   
+    <div id="tester"></div>
+              
+    
+</div>
+</div>
+<?php 
+  if (isset($_POST["y-axis"]) and isset($_POST["x-axis"])) {
+    $x_axis = $_POST["x-axis"]; 
+    $columns = $_POST["y-axis"];
+    $query = "SELECT * FROM `".$database_table."`";
+    $res = mysqli_query($conn, $query);
+    $rows = $res->fetch_all(MYSQLI_ASSOC);
+    $x_axis_data = array_column($rows, $x_axis);  
+    $table_data = array();
+      for ($i=1; $i < count($columns)+1; $i++) { 
+        $name = "column".$i;
+        ${$name} = array_column($rows, $columns[$i-1]);
+      array_push($table_data, ${$name});
+    }
+  }               
+?>
+<script>
+    var columns = <?php echo '["' . implode('", "', $columns) . '"]' ?>;
+    var table_data = <?php echo json_encode($table_data); ?>;
+    var x_axis_data = <?php echo '["' . implode('", "', $x_axis_data) . '"]' ?>;
+    var i=0;
+    var data = [];
+    for (i = 0; i < columns.length; i++) {
+      var trace = {
+        x: x_axis_data,
+        y: table_data[i],
+        mode: 'lines+markers',
+        name: columns[i],
+        type: 'scatter'
+      };
+      data.push(trace);
+    }
+    
+    TESTER = document.getElementById('tester');
+    Plotly.newPlot( TESTER, data, {
+    margin: { t: 25 } } );
+</script>
 </body>
-
 </html>

@@ -1,207 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Visualizer Dashboard</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-    <script src="plugins/jquery/jquery.js"></script>
-    <script src="plugins/plotly/plotly-latest.min.js"></script>
-    <style>
-        td {
-            text-align: center;
-        }
-    </style>
 <?php
-  include 'header.php';
+	session_start();
+	include 'header1.php';
+	include 'connection.php';
+	$database_table = $_SESSION['fileName'];
+  if ($conn && $db)
+   {
+    
+    $col_name_query = mysqli_query($conn, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'datavisualizer' AND TABLE_NAME = '".$database_table."'");
+    $result = $col_name_query->fetch_all(MYSQLI_ASSOC);
+
+    // Array of all column names
+    $columnArr = array_column($result, 'COLUMN_NAME');
+    
+    
+  }
+  else
+  {
+    echo "connection failed";
+  }
+  
 ?>
+<head>
+	<title>Line Chart</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	    td{
+	      text-align: center;
+	    }
+	</style>
 </head>
-
 <body class="hold-transition sidebar-mini layout-fixed">
-
-    <div class="wrapper">
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Example - Dotplot</h1>
-                        </div>
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-            <section class="content">                
-                <div class="container">
-                    <div class="card" style="width:100%; margin:auto">
-                    <div class="card-body">
-                        <div class="row mb-6 justify-content-center">
-                            <div class="col-sm-6" id="dotplot">
-                                <script>
-                                   var country = ['Switzerland (2011)', 'Chile (2013)', 'Japan (2014)', 'United States (2012)', 'Slovenia (2014)', 'Canada (2011)', 'Poland (2010)', 'Estonia (2015)', 'Luxembourg (2013)', 'Portugal (2011)'];
-
-                                    var votingPop = [40, 45.7, 52, 53.6, 54.1, 54.2, 54.5, 54.7, 55.1, 56.6];
-
-                                    var regVoters = [49.1, 42, 52.7, 84.3, 51.7, 61.1, 55.3, 64.2, 91.1, 58.9];
-
-                                    var trace1 = {
-                                    type: 'scatter',
-                                    x: votingPop,
-                                    y: country,
-                                    mode: 'markers',
-                                    name: 'Percent of estimated voting age population',
-                                    marker: {
-                                        color: 'rgba(156, 165, 196, 0.95)',
-                                        line: {
-                                        color: 'rgba(156, 165, 196, 1.0)',
-                                        width: 1,
-                                        },
-                                        symbol: 'circle',
-                                        size: 16
-                                    }
-                                    };
-
-                                    var trace2 = {
-                                    x: regVoters,
-                                    y: country,
-                                    mode: 'markers',
-                                    name: 'Percent of estimated registered voters',
-                                    marker: {
-                                        color: 'rgba(204, 204, 204, 0.95)',
-                                        line: {
-                                        color: 'rgba(217, 217, 217, 1.0)',
-                                        width: 1,
-                                        },
-                                        symbol: 'circle',
-                                        size: 16
-                                    }
-                                    };
-
-                                    var data = [trace1, trace2];
-
-                                    var layout = {
-                                    title: 'Votes cast for ten lowest voting age population in OECD countries',
-                                    xaxis: {
-                                        showgrid: false,
-                                        showline: true,
-                                        linecolor: 'rgb(102, 102, 102)',
-                                        titlefont: {
-                                        font: {
-                                            color: 'rgb(204, 204, 204)'
-                                        }
-                                        },
-                                        tickfont: {
-                                        font: {
-                                            color: 'rgb(102, 102, 102)'
-                                        }
-                                        },
-                                        autotick: false,
-                                        dtick: 10,
-                                        ticks: 'outside',
-                                        tickcolor: 'rgb(102, 102, 102)'
-                                    },
-                                    margin: {
-                                        l: 140,
-                                        r: 40,
-                                        b: 50,
-                                        t: 80
-                                    },
-                                    legend: {
-                                        font: {
-                                        size: 10,
-                                        },
-                                        yanchor: 'middle',
-                                        xanchor: 'right'
-                                    },
-                                    width: 600,
-                                    height: 600,
-                                    paper_bgcolor: 'rgb(254, 247, 234)',
-                                    plot_bgcolor: 'rgb(254, 247, 234)',
-                                    hovermode: 'closest'
-                                    };
-                                    dotplot = document.getElementById("dotplot");
-
-                                    Plotly.newPlot(dotplot, data, layout);
-                                </script>                    
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong></strong>
-            <div class="float-right d-none d-sm-inline-block">
-
-            </div>
-        </footer>
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dot Plot</h1>
+            <form method="post">
+              <table class="table table-bordered" style="width: 1000px;">
+                <tr>
+                  <td>X axis:</td>
+                  <td><select class="form-control" name="x-axis">
+                    <option disabled="disabled" selected="selected">Select</option>
+                    <?php
+                      foreach ($columnArr as $column) {
+                      ?>
+                        <option value="<?=$column?>"><?=$column?></option>
+                      <?php
+                      }
+                    ?>
+                  </select></td>
+                  <td>Y axis:</td>
+                  <td><select name="y-axis[]" class="form-control" multiple="multiple">
+                    <option disabled="disabled" selected="selected">Select</option>
+                    <?php
+                      foreach ($columnArr as $column) {
+                      ?>
+                        <option value="<?=$column?>"><?=$column?></option>
+                      <?php
+                      }
+                    ?>
+                  </select>
+                  </td>
+                  <td class="text-center"><button class="btn btn-primary" type="buttons">Generate</button></td>
+                </tr>
+              </table>
+            </form>
+          </div>
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-
-    <!-- ./wrapper -->
-
-    <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="plugins/chart.js/Chart.min.js"></script>
-    <!-- Sparkline -->
-    <script src="plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-    <script src="plugins/moment/moment.min.js"></script>
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
-    <script src="plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.js"></script>
-
-    <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard.js"></script>
+    <!-- /.content-header -->
+   
+    <div id="tester"></div>
+              
+    
+</div>
+</div>
+<?php 
+  if (isset($_POST["y-axis"]) and isset($_POST["x-axis"])) {
+    $x_axis = $_POST["x-axis"]; 
+    $columns = $_POST["y-axis"];
+    $query = "SELECT * FROM `".$database_table."`";
+    $res = mysqli_query($conn, $query);
+    $rows = $res->fetch_all(MYSQLI_ASSOC);
+    $x_axis_data = array_column($rows, $x_axis);  
+    $table_data = array();
+      for ($i=1; $i < count($columns)+1; $i++) { 
+        $name = "column".$i;
+        ${$name} = array_column($rows, $columns[$i-1]);
+      array_push($table_data, ${$name});
+    }
+  }               
+?>
+<script>
+    var columns = <?php echo '["' . implode('", "', $columns) . '"]' ?>;
+    var table_data = <?php echo json_encode($table_data); ?>;
+    var x_axis_data = <?php echo '["' . implode('", "', $x_axis_data) . '"]' ?>;
+    var i=0;
+    var data = [];
+    for (i = 0; i < columns.length; i++) {
+      var trace = {
+        type: 'scatter',
+        x: x_axis_data,
+        y: table_data[i],
+        mode: 'markers',
+        name: columns[i],
+        marker: {
+          line: {
+            color: 'rgba(156, 165, 196, 1.0)',
+            width: 1,
+          },
+          symbol: 'circle',
+          size: 16
+        }
+      };
+      data.push(trace);
+    }
+    
+    TESTER = document.getElementById('tester');
+    Plotly.newPlot( TESTER, data, {
+    margin: { t: 25 } } );
+</script>
 </body>
-
 </html>
