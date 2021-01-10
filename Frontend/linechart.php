@@ -91,6 +91,7 @@
     $res = mysqli_query($conn, $query);
     $rows = $res->fetch_all(MYSQLI_ASSOC);
     $x_axis_data = array_column($rows, $x_axis);  
+    sort($x_axis_data);
     $table_data = array();
       for ($i=1; $i < count($columns)+1; $i++) { 
         $name = "column".$i;

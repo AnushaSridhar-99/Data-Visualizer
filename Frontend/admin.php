@@ -53,10 +53,9 @@ if(isset($_GET["username"])){
             <div class="container-fluid">
                 <section class="content"> 
                         <div  class="col d-flex justify-content-center">
-                            <div class="card" style="width: 25%">
-                                <div class="card-body align-items-center d-flex justify-content-center">
+                           
                                     <div class="form-group row">
-                                        <div class="col-xs-4">
+                                       
                                             
                                                 <div class="form-group text-center">
                                                     <?php
@@ -79,8 +78,12 @@ if(isset($_GET["username"])){
                                                             $userid = $row['id'];
                                                             $username = $row['username'];
                                                             // echo $userid;
+                                                            echo ' <div class="card mt-3" style="width: 100%">
+                                                                    <div class="card-body align-items-center d-flex justify-content-center">';
+                                                            echo ' <div class="col-xs-4">';
                                                             echo "<label>".$username."</label>";
-                                                            echo '<button type="button" onclick=deleteuser("'.$username.'") class="btn btn-default">Remove User</button><br/>';
+                                                            echo '<button type="button" onclick=deleteuser("'.$username.'") class="btn btn-outline-danger ml-2">Remove User</button><br/>';
+                                                            echo '</div></div></div>';
                                                         }
                                                     }
                                                     else
@@ -89,10 +92,10 @@ if(isset($_GET["username"])){
                                                     }
                                                     
                                                     ?>                                                    
-                                                </div>                                                
+                                                                                          
                                             
-                                        </div>
-                                    </div>
+                                      
+                                    
                                 </div>
                             </div>
                         </div>
@@ -103,7 +106,9 @@ if(isset($_GET["username"])){
 <script>
 function deleteuser(username){
     // alert(username);
+    if(confirm("Are you sure you want to delete this user?")){
     window.location.href = "admin.php?username="+username;
+    }
 
 }  
 </script>

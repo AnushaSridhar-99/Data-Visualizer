@@ -103,20 +103,22 @@
               {
                 echo $retval;
                 $_SESSION['fileName'] = $retval;
+                $database_table = $retval;
                 echo "<br/> Inserted to DB successfully";                      
-                echo "<table class =\"table table-bordered table-striped\">\n\n";
-                $f = fopen("upload/".$_FILES["csvFile"]["name"], "r");
-                while (($line = fgetcsv($f)) !== false) {
-                        echo "<tr>";
-                        foreach ($line as $cell) {
-                                echo "<td>" . htmlspecialchars($cell) . "</td>";
-                        }
-                        echo "</tr>\n";
-                }
-                fclose($f);
-                echo "\n</table>";
+                // echo "<table class =\"table table-bordered table-striped\">\n\n";
+                // $f = fopen("upload/".$_FILES["csvFile"]["name"], "r");
+                // while (($line = fgetcsv($f)) !== false) {
+                //         echo "<tr>";
+                //         foreach ($line as $cell) {
+                //                 echo "<td>" . htmlspecialchars($cell) . "</td>";
+                //         }
+                //         echo "</tr>\n";
+
+              // }
+                // fclose($f);
+                // echo "\n</table>";
                 //echo '<button class="btn btn-primary" type="button" name="choosePlot" onclick="location.href=\'cardselect.php\'">Choose Plots</button>';
-                 if ($conn && $db)
+                if ($conn && $db)
                 {
                   $query = "SELECT id FROM users where username = '".$username."'";
                   $res = mysqli_query($conn, $query);
@@ -125,7 +127,50 @@
                   // echo $userid;
                   $link_query = mysqli_query($conn, "INSERT INTO usercsv (id,tablename) VALUES (".$userid.", '".$retval."')");
                   $res = mysqli_query($conn, $link_query);
-                  // echo "Inserted to usercsv successfully";          
+                  $col_name_query = mysqli_query($conn, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'datavisualizer' AND TABLE_NAME = '".$retval."'");
+                  $result = $col_name_query->fetch_all(MYSQLI_ASSOC);
+
+                  // Array of all column names
+                  $columns = array_column($result, 'COLUMN_NAME');
+                  // echo "Inserted to usercsv successfully";       
+                  $query = "SELECT * FROM `".$retval."`";
+                  $res = mysqli_query($conn, $query);
+                  $rows = $res->fetch_all(MYSQLI_ASSOC);
+                  
+                  $table_data = array();
+                  for ($i=1; $i < count($columns)+1; $i++) 
+                  { 
+                      $name = "column".$i;
+                      ${$name} = array_column($rows, $columns[$i-1]);
+                      array_push($table_data, ${$name});
+                }                
+                  echo '
+                  <script>
+                      var columns = ["' .implode('", "', $columns) . '"];
+                      var table_data = '.json_encode($table_data).'; 
+                      var values = table_data;
+
+                      var data = [{
+                      type: \'table\',
+                      header: {
+                          values: columns,
+                          align: "center",
+                          line: {width: 1, color: "black"},
+                          fill: {color: "grey"},
+                          font: {family: "Arial", size: 12, color: "white"}
+                      },
+                      cells: {
+                          values: values,
+                          align: "center",
+                          line: {color: "black", width: 1},
+                          font: {family: "Arial", size: 11, color: ["black"]}
+                      }
+                      }]
+                      table = document.getElementById("table");
+
+                      Plotly.newPlot(table, data);
+                  </script>';                    
+                     
                 }
                 else
                 {
@@ -133,6 +178,7 @@
                 }
                 
                 ?>
+                <div id="table"></div>
 
                 <div style="text-align: center;">
                 <form method="post" action="table.php">
@@ -152,7 +198,8 @@
     ?>
                 
             </td>
-          </tr>          
+          </tr>   
+          </table>       
         <?php
         }
         ?>

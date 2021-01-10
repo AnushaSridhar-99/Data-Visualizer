@@ -69,7 +69,7 @@ if(!isset($_SESSION))
         <a href="index.php" class="nav-link">Upload new CSV</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="userhome.php" class="nav-link">Remove existing CSV</a>
+        <a href="userhome.php" class="nav-link">Plot or Remove existing CSV</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="logout.php" class="nav-link">Logout</a>
@@ -140,7 +140,7 @@ if(!isset($_SESSION))
           </li>
           <li class="nav-header">EXAMPLES</li>
           <li class="nav-item">
-            <a class="nav-link" href="scatterplot.php">
+            <a class="nav-link" href="scatterplotExample.php">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Scatter Plot
@@ -148,7 +148,7 @@ if(!isset($_SESSION))
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="linechart.php">
+            <a class="nav-link" href="linechartExample.php">
               <i class="nav-icon fas fa-chart-line"></i>
               <p>
                 Line Chart
@@ -156,7 +156,7 @@ if(!isset($_SESSION))
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="barchart.php">
+            <a class="nav-link" href="barchartExample.php">
               <i class="nav-icon fas fa-chart-bar" aria-hidden="true"></i>
               <p>
                 Bar Chart
@@ -164,7 +164,7 @@ if(!isset($_SESSION))
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="piechart.php">
+            <a class="nav-link" href="piechartExample.php">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Pie Chart
@@ -172,7 +172,7 @@ if(!isset($_SESSION))
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="dotplot.php">
+            <a class="nav-link" href="dotplotExample.php">
               <i class="nav-icon fas fa-braille"></i>
               <p>
                 Dot Plot
@@ -180,7 +180,7 @@ if(!isset($_SESSION))
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="table.php">
+            <a class="nav-link" href="tableExample.php">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Table

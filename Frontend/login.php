@@ -75,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             else if($desgn =="user")
                             {
                             // Redirect user to welcome page
-                            header("location: index.php");
+                            header("location: userhome.php");
                         }
                         } else{
                             // Display an error message if password is not valid
