@@ -29,8 +29,7 @@
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
-  <link rel="stylesheet" type="text/css" href="plugins/Semantic-UI-CSS-master/semantic.min.css">
-  <script src="plugins/Semantic-UI-CSS-master/semantic.min.js"></script>
+  
   <style>
     #loader { 
             border: 12px solid #f3f3f3; 
@@ -62,47 +61,7 @@
  
 <div id="loader" class="center"></div> 
 
-  <!-- Navbar -->
   
-      <div class="row">
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-          </li>
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="scatterplot.php" class="nav-link">Scatter Plot</a>
-          </li>
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="linechart.php" class="nav-link">Line Chart</a>
-          </li>
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="barchart.php" class="nav-link">Bar Chart</a>
-          </li>
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="piechart.php" class="nav-link">Pie Chart</a>
-          </li>
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="dotplot.php" class="nav-link">Dot Plot</a>
-          </li>
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="table.php" class="nav-link">Table</a>
-          </li>
-      </ul>
-    </nav>
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light  navbar-expand-sm">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="index.php" class="nav-link">Home</a>
-          </li>
-    </ul>   
-  </nav>
-</div>
-  <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
