@@ -127,7 +127,7 @@
     <div class="container">
       <div class="card" style="width:100%; margin:auto">
         <div class="card-body">
-          <div class="row mb-6 justify-content-center">
+          <div class="justify-content-center">
             <div id="barchart"></div>   
           </div>
         </div>
@@ -149,20 +149,24 @@
     $query = "SELECT * FROM `".$database_table."`";
     $res = mysqli_query($conn, $query);
     $rows = $res->fetch_all(MYSQLI_ASSOC);
-    $xAxisData = array_column($rows, $xAxis);  
-    $table_data = array();
-      for ($i=1; $i < count($columns)+1; $i++) { 
-        $name = "column".$i;
-        ${$name} = array_column($rows, $columns[$i-1]);
-      array_push($table_data, ${$name});
+    $xAxisData = array_column($rows, $xAxis); 
+    if (count($columns) > 1) {
+        $table_data = array();
+        for ($i=1; $i < count($columns)+1; $i++) { 
+          $name = "column".$i;
+          ${$name} = array_column($rows, $columns[$i-1]);
+        array_push($table_data, ${$name});
+      }
     }
+    else{
+      $table_data = array_column($rows, $columns[0]);
+    } 
   }               
 ?>
 <script>
+    var col = <?php echo '["' . implode('", "', $columns) . '"]' ?>;
     var columns = <?php echo '["' . implode('", "', $xAxisData) . '"]' ?>;
     var table_data = <?php echo json_encode($table_data); ?>;
-    document.write(columns);
-    document.write(table_data);
       var data = [{
         x: columns,
         y: table_data,
